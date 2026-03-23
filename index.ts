@@ -13,6 +13,8 @@ app.use(express.json());
 /* ENDPOINTS */
 app.get('/api/chatbot/model-info', chatbotController.getModelInfo);
 
+app.post('/api/chatbot/chat', chatbotController.sendMessage);
+
 // Global error handling
 app.use((err, req, res, next) => {
   console.log(err);
