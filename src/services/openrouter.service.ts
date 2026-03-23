@@ -2,8 +2,8 @@ import 'dotenv/config';
 import { OpenRouter } from '@openrouter/sdk';
 
 const model = {
-  author: 'openrouter',
-  slug: 'free',
+  author: 'arcee-ai',
+  slug: 'trinity-large-preview:free',
 };
 
 const openRouter = new OpenRouter({

@@ -1,9 +1,14 @@
 import 'dotenv/config';
 import express from 'express';
-import * as chatbotController from './src/controllers/chatbot.controller.js';
+import cors from 'cors';
+import * as chatbotController from './src/controllers/chatbot.controller';
 
 const PORT = process.env.PORT;
 const app = express();
+
+app.use(cors());
+
+app.use(express.json());
 
 /* ENDPOINTS */
 app.get('/api/chatbot/model-info', chatbotController.getModelInfo);

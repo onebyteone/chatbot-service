@@ -1,4 +1,4 @@
-import * as openrouterService from '../services/openrouter.service.js';
+import * as openrouterService from '../services/openrouter.service';
 
 export async function getModelInfo(req, res) {
   try {
@@ -8,3 +8,4 @@ export async function getModelInfo(req, res) {
     res.status(500).json({ status: false, message:'Error getting model endpoints' });
   }
 }
+
