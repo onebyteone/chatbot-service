@@ -16,7 +16,7 @@ app.get('/api/chatbot/model-info', chatbotController.getModelInfo);
 app.post('/api/chatbot/chat', chatbotController.sendMessage);
 
 // Global error handling
-app.use((err, req, res, next) => {
+app.use((err: any, req: any, res: any, next: any) => {
   console.log(err);
   res.status(500).json({ status: false, message: 'Internal Server Error. Try again later or contact support.' });
 });

@@ -1,6 +1,6 @@
 import * as openrouterService from '../services/openrouter.service';
 
-export async function getModelInfo(req, res) {
+export async function getModelInfo(req: any, res: any) {
   try {
     const modelInfo = await openrouterService.getModelInfo();
     res.json(modelInfo);
@@ -9,16 +9,16 @@ export async function getModelInfo(req, res) {
   }
 }
 
-export async function sendMessage(req, res) {
+export async function sendMessage(req: any, res: any) {
   try {
     const { inputMessages } = req.body;
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Transfer-Encoding', 'chunked');
 
-    await openRouterService.streamMessage(
+    await openrouterService.streamMessage(
       inputMessages,
-      (chunk) => {
-        res.write(chunk);
+      (chunk: any) => {
+        res.write(JSON.stringify(chunk) + "\n");
       }
     );
 
