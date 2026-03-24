@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { OpenRouter } from '@openrouter/sdk';
 import type { StreamableOutputItem } from '@openrouter/sdk';
 import type { OpenResponsesInput, ResponsesOutputMessage } from '@openrouter/sdk/models';
+import { getProductsTool } from './tools/get-products.tool';
 
 const model = {
   author: 'arcee-ai',
@@ -25,6 +26,7 @@ export async function streamMessage(inputMessages: OpenResponsesInput, sendItem:
   const result = openRouter.callModel({
     model:`${model.author}/${model.slug}`,
     input: inputMessages,
+    tools: [getProductsTool] as const,
     instructions: `
 ## 🧠 Instrucciones
 
@@ -46,6 +48,8 @@ Eres un asistente virtual de **Yuntas Publicidad**. Tu objetivo es brindar infor
 ## 🚫 Prevención de alucinaciones
 
 * **NO inventes información** que no esté incluida en estas instrucciones.
+* Cuando el usuario pregunte por productos, catálogo, categorías o disponibilidad, **usa siempre la tool get_products** para responder con datos reales.
+* Si la tool falla o no devuelve resultados, indícalo con transparencia y ofrece canal de contacto.
 * Si no sabes algo, responde con frases como:
 
   * “No cuento con esa información en este momento, pero puedo ayudarte a contactar al equipo.”
@@ -89,6 +93,12 @@ Puedes mencionar cuando sea relevante:
 * Proyectores holográficos 3D
 * Letreros acrílicos
 * Paneles electrónicos
+
+Si el usuario solicita lista, detalle, categorías o recomendaciones de productos:
+
+* Consulta primero la tool get_products.
+* Resume hallazgos con nombre del producto y breve descripción.
+* Si hay varias coincidencias, ofrece continuar con más detalle.
 
 ---
 
